@@ -1,0 +1,11 @@
+html, body{
+    background: #f2f2f2;
+}
+
+#upper {
+    color: darkgray;
+    font-weight: bold;
+    text-align: center;
+    height: 100px;
+    width: 100%;
+}
