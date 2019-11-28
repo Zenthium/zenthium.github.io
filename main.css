@@ -1,36 +1,44 @@
-html, body {
-    background: #f2f2f2;
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(200,200,200);
 }
 
-#upper {
-    color: darkgray;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 36px;
-    text-align: center;
-    height: 100px;
-    width: 100%;
+.title {
+  font-size: 72px;
+  color: rgb(100, 100, 100);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: center;
 }
 
-#lower {
-    text-align: center;
-    color: darkgray;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 30px;
-    width: 100%
+.projects {
+  display: flex;
+  flex-direction: column;
 }
 
-#project-list {
-    list-style-type: none;
-    align-items: center;
-    text-align: center;
+.projectHeading {
+  font-size: 48px;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+.projectCards {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-#project-list li {
-    font-family: Arial, Helvetica, sans-serif;
-    color: darkgray;
-    font-size: 20px;
-    display: inline-block;
-    float: none;
-    margin-right: 50px;
+.projectCard {
+  padding: 1rem;
+  border: 1px solid grey;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.projectCard a{
+  font-size: 32px;
+}
+
+.projectCard p{
+  font-size: 16px;
 }

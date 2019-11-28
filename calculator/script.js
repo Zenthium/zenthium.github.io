@@ -1,185 +1,187 @@
-//Initialize everything & put it into variables
+const numberButtonContainer = document.querySelector(".numberbuttons");
+const display = document.querySelector(".display");
+const operatorButtonContainer = document.querySelector(".opbuttons");
+const topButtonContainer = document.querySelector(".topbuttons");
+const operators = ["/", "*", "-", "+"];
+let resultArray = []
 
-const display = document.querySelector('#display');
-const topButtons = document.querySelectorAll('#top-button');
-const numButtons = document.querySelectorAll('#num-button');
-const opButtons = document.querySelectorAll('#op-button');
-const eqButton = document.querySelector('#eq-button');
-const floatButton = document.querySelector('#float-button');
-const backButton = document.querySelector('#back-button');
-const displayString = document.createElement('h1');
-//More variable initialization
-const operationsep = ['-', '\\\+', '·', '÷'];
-const operations = ['-', '+', '·', '÷', '.'];
-let result = 0;
-//All of the basic math functions
-function addition(num1, num2) {
-    return num1 + num2;
+//basic operation functions
+function add(num1, num2) {
+  return num1 + num2;
 }
-function subt(num1, num2) {
-    return num1 - num2;
+function subtract(num1, num2) {
+  return num1 - num2;
 }
-function mult(num1, num2) {
-    return num1 * num2;
+function multiply(num1, num2) {
+  return num1 * num2;
 }
-function div(num1, num2) {
-    return num1 / num2;
-}
-function operate(num1, num2, choice) { //Function for controlling math operations.
-    if (choice == 1) {
-        return addition(parseFloat(num1), parseFloat(num2));
-    }
-    else if (choice == 2) {
-        return subt(parseFloat(num1), parseFloat(num2));
-    }
-    else if (choice == 3) {
-        return mult(parseFloat(num1), parseFloat(num2));
-    }
-    else {
-        return div(parseFloat(num1), parseFloat(num2));
-    }
-}
-function fullOperation() { //The function that makes the whole thing work. This function runs when the Equal button is pressed.
-    let x = displayString.textContent;
-    let numbers = x.split(new RegExp('[-+÷·.]', 'g'));
-    let operationsList = [];
-    //Get a list of all operations
-    for (let i = 0; i < displayString.textContent.length; i++) {
-        if (operations.includes(displayString.textContent[i])) {
-            operationsList.push(displayString.textContent[i]);
-        }
-    }
-    //Insert all operations into the list of numbers, to get ready for functions.
-    for (let i = 1; i < numbers.length; i += 2) {
-        numbers.splice(i, 0, operationsList[0]);
-        operationsList.splice(0, 1);
-    }
-    for (let i = 0; i < numbers.length; i++) { //Go through list of numbers. If floating point number is found, combine it with other stuff.
-        if (numbers[i] === '.') {
-            let float = '';
-            float += parseInt(numbers[i - 1]);
-            float += '.';
-            float += parseInt(numbers[i + 1]);
-            numbers.splice(i - 1, 3);
-            let num = i - 1;
-            numbers.splice(num, 0, float);
-            i -= 1;
-        }
-    }
-    let divideCount = 0;
-    let multipleCount = 0;
-    //Figure out the amount of division operators & multiplication operators in the equation.
-    for (let i = 0; i < numbers.length; i++) {
-        switch (numbers[i]) {
-            case '÷':
-                divideCount++;
-                break;
-            case '·':
-                multipleCount++;
-                break;
-            default:
-                break;
-        }
-    }
-    /* Perform all of the multiplication and
-    division operations first, then put them
-    back in the equation so that addition &
-    subtraction can be performed. */
-    let totalCount = divideCount + multipleCount;
-    while (totalCount !== 0) {
-        for (let i = 1; i < numbers.length; i += 2) {
-            if (numbers[i] === '÷') {
-                result = operate(numbers[i - 1], numbers[i + 1], 4);
-                let num = i;
-                numbers.splice([i - 1], 3);
-                numbers.splice(num - 1, 0, result);
-                totalCount--;
-                break;
-            }
-            else if (numbers[i] === '·') {
-                result = operate(numbers[i - 1], numbers[i + 1], 3);
-                let num = i;
-                numbers.splice([i - 1], 3);
-                numbers.splice(num - 1, 0, result);
-                totalCount--;
-                break;
-            }
-        }
-    }
-    /*Perform addition and subtraction. */
-    while (numbers.length !== 1) {
-        for (let i = 1; i < numbers.length; i += 2) {
-            if (numbers[i] === '+') {
-                result = operate(numbers[i - 1], numbers[i + 1], 1);
-                let num = i;
-                numbers.splice(i - 1, 3);
-                numbers.splice(num - 1, 0, result)
-            }
-            else {
-                result = operate(numbers[i - 1], numbers[i + 1], 2);
-                let num = i;
-                numbers.splice(i - 1, 3);
-                numbers.splice(num - 1, 0, result)
-            }
-        }
-    }
-    if (numbers[0] === Infinity) {
-        displayString.textContent = 'Divide by 0 error';
-    }
-    else if (numbers[0] !== numbers[0]) {
-        displayString.textContent = 'Syntax error. Check your equation';
-    }
-    else {
-        displayString.textContent = result;
-    }
-}
-/*Initialize each button. The if statement
-is to allow the display to update while the user
-is putting in numbers. It removes the element that's
-currently there and replaces it with an updated
-element. */
-function initializeButtons(button) {
-    displayString.textContent += button.value;
-    if (display.firstChild) {
-        display.removeChild(display.firstChild);
-        display.appendChild(displayString);
-    }
-    else {
-        display.appendChild(displayString);
-    }
+function divide(num1, num2) {
+  if (num2 == 0){
+    let numberDisplay = display.children[0];
+    numberDisplay.innerHTML = "Divide by 0 error.";
+    return;
+  }
+  return num1 / num2;
 }
 
+//operate function, takes operator and two numbers and carries out the requested operation
+function operate(operator, num1, num2) {
+  if (operator == "/") {
+    return divide(num1, num2);
+  } else if (operator == "*") {
+    return multiply(num1, num2);
+  } else if (operator == "-") {
+    return subtract(num1, num2);
+  } else if (operator == "+") {
+    return add(num1, num2);
+  }
+}
 
-topButtons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-        while (display.firstChild) {
-            display.removeChild(display.firstChild);
-            result = 0;
-        }
-        displayString.textContent = '';
+//function to add number to display
+function addNumberToDisplay(target) {
+  let numberDisplay;
+  if (display.children.length == 0) {
+    numberDisplay = document.createElement("p");
+    display.appendChild(numberDisplay);
+    numberDisplay.style.fontSize = "24px";
+    numberDisplay.style.fontFamily = "'Courier New', Courier, monospace";
+  } else {
+    numberDisplay = display.children[0];
+  }
+  numberDisplay.innerHTML = numberDisplay.innerHTML + String(target.value);
+}
+
+//initialize the number buttons
+function activateNumberButtons() {
+  let numbers = numberButtonContainer.children;
+  for (i = 0; i < numbers.length; i++) {
+    numbers[i].addEventListener("click", e => {
+      addNumberToDisplay(e.target);
     });
-});
-backButton.addEventListener('click', (e) => {
-    let text = displayString.textContent.substring(0, displayString.textContent - 1);
-    displayString.textContent = text;
-    display.removeChild(display.firstChild);
-    display.appendChild(displayString);
-});
-/*Loop through each button & initialize. */
-numButtons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-        initializeButtons(button);
-    });
-});
-opButtons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-        initializeButtons(button);
-    });
-});
-eqButton.addEventListener('click', (e) => {
-    fullOperation();
-});
-floatButton.addEventListener('click', (e) => {
-    initializeButtons(floatButton);
-});
+  }
+}
 
+//function to add operator symbol to display
+function addOperatorToDisplay(target) {
+  let numberDisplay;
+  if (display.children.length == 0) {
+    numberDisplay = document.createElement("p");
+    display.appendChild(numberDisplay);
+    numberDisplay.style.fontSize = "24px";
+    numberDisplay.style.fontFamily = "'Courier New', Courier, monospace";
+  } else {
+    numberDisplay = display.children[0];
+  }
+
+  numberDisplay.innerHTML = numberDisplay.innerHTML + String(target.value);
+}
+
+//initialize operator buttons
+function activateOperatorButtons() {
+  let buttons = operatorButtonContainer.children;
+  for (i = 0; i < buttons.length; i++) {
+    if (buttons[i].value == "equals") {
+      buttons[i].addEventListener("click", (e) => {
+        evaluateExpression();
+      })
+    } else {
+      buttons[i].addEventListener("click", (e) => {
+        addOperatorToDisplay(e.target);
+      });
+    }
+  }
+
+  let topButtons = topButtonContainer.children;
+  topButtons[3].addEventListener("click", (e) => {
+    addOperatorToDisplay(e.target);
+  });
+}
+
+//go through resultArray and check for multiplication and division, do those first.
+function doMultiplicationAndDivision(){
+  for (i = 0; i < resultArray.length; i++){
+    if ((resultArray[i] == "*") || (resultArray[i] == "/")){
+      resultArray[i] = operate(resultArray[i], parseFloat(resultArray[i-1]), parseFloat(resultArray[i+1]));
+      resultArray.splice(i-1, 1);
+      resultArray.splice(i, 1);
+      i = i - 1;
+    }
+  }
+}
+
+//do the addition and subtraction once done
+function doAdditionAndSubtraction(){
+  for (i = 0; i < resultArray.length; i++){
+    if (operators.includes(resultArray[i])){
+      resultArray[i] = operate(resultArray[i], parseFloat(resultArray[i-1]), parseFloat(resultArray[i+1]));
+      resultArray.splice(i-1, 1);
+      resultArray.splice(i, 1);
+      i = i - 1;
+    }
+  }
+}
+
+//total it all up!
+function evaluateExpression(){
+  let numberDisplay;
+  if (display.children.length == 0) {
+    //just don't do anything
+  } else {
+    numberDisplay = display.children[0];
+  }
+  let mostRecentSplit = 0;
+  if (numberDisplay.innerHTML.length > 0){
+    for (i = 0; i < numberDisplay.innerHTML.length; i++){
+      if (operators.includes(numberDisplay.innerHTML[i])){
+        resultArray.push(numberDisplay.innerHTML.substring(mostRecentSplit, i));
+        resultArray.push(numberDisplay.innerHTML.substring(i, i+1));
+        mostRecentSplit = i + 1;
+      }
+    }
+  }
+  if (operators.includes(numberDisplay.innerHTML[0])){
+    numberDisplay.innerHTML = "Error";
+    return;
+  }
+  if (numberDisplay.innerHTML.length - 1 == mostRecentSplit){
+    resultArray.push(numberDisplay.innerHTML.substring(mostRecentSplit));
+  }
+
+  if ((operators.includes(resultArray[0])) || (operators.includes(resultArray[resultArray.length - 1]))){
+    numberDisplay.innerHTML = "Error"
+    return;
+  }
+
+  doMultiplicationAndDivision();
+  doAdditionAndSubtraction();
+
+  numberDisplay.innerHTML = resultArray[0];
+  resultArray = [];
+}
+
+//initialize clear button
+function activateClearButton(){
+  let clearButton = document.querySelector(".topbuttons").children[0];
+  clearButton.addEventListener("click", (e) => {
+    let numberDisplay;
+    if (display.children.length > 0){
+      display.children[0].innerHTML = "";
+    }
+  });
+}
+
+//initialize backspace button
+function activateBackspaceButton(){
+  let backspaceButton = document.querySelector(".topbuttons").children[1];
+  backspaceButton.addEventListener("click", (e) => {
+    let numberDisplay;
+    if (display.children.length > 0){
+      display.children[0].innerHTML = display.children[0].innerHTML.substring(0, display.children[0].innerHTML.length - 1);
+    }
+  })
+}
+
+activateNumberButtons();
+activateOperatorButtons();
+activateClearButton();
+activateBackspaceButton();
