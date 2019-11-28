@@ -1,0 +1,149 @@
+html, body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#titleHeading {
+  height: 7rem;
+  background-color: rgb(100, 100, 100);
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid black;
+}
+
+#titleHeading p{
+  font-size: 30px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: white;
+  margin: auto 1.5rem;
+}
+
+#content {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+#projectDisplay {
+  width: 25rem;
+  background-color: rgb(65, 65, 65);
+  display: flex;
+  flex-direction: column;
+}
+
+.projectButton {
+  width: 23rem;
+  margin: 1rem 1rem;
+  text-align: center;
+  background-color: white;
+  color: rgb(100, 100, 100);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border-radius: 0.5rem;
+  padding: 1rem 0;
+}
+
+.clicked {
+  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.3), 0 6px 20px 0 rgba(255, 255, 255, 0.29);
+}
+
+#todoItemDisplay {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#newItemButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1.5625rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: center;
+  border-bottom: 1px solid grey;
+  border-radius: 10px;
+}
+
+#newItemButton button {
+  padding: 1rem;
+  font-size: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border: 0px;
+  border-radius: 15px;
+  background-color: rgb(221, 221, 221);
+}
+
+#todoItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0px 30px;
+}
+
+.todoCard {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 1rem 0.5rem;
+  border: 0px solid black;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 10px 0px;
+}
+.todoCard p {
+  padding: 0px 5px;
+  margin: 0px;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.controlButton {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  height: 2rem;
+  border: 0px;
+  margin: 0px 5px;
+  border-radius: 10px;
+  width: 7rem;
+}
+
+.delete {
+  background-color: red;
+  color: white;
+}
+
+.edit {
+  background-color: grey;
+  color: white;
+}
+
+#itemForm {
+  position: fixed;
+  height: 300px;
+  width: 200px;
+  border: 0px;
+  /* border-radius: 25px; */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: center;
+}
+
+.newProjectButton {
+  padding: 1rem;
+  font-size: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border: 0px;
+  border-radius: 15px;
+  background-color: rgb(221, 221, 221);
+
+}
+
+
+
